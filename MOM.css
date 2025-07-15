@@ -1,0 +1,229 @@
+/*==== GOOGLE FONTS ====*/
+@import url('https://fonts.google.com/specimen/Edu+SA+Handewriting?query=edu+sa+handwriting');
+
+/*====VARIABLES CSS====*/
+:root {
+    /*===== COLORS =====*/
+    /*Colors mode HSL(hue, Saturation, Lightness)*/
+    --first-color: hsl(0, 57%, 40%);
+    --title-color: hsl(0, 54%, 45%);
+    --text-color: hsl(0, 43%, 55%);
+    --body-color: hsl(0, 42%, 64%);
+    --container-color: hsl(281, 85%, 85%);
+
+    /*===== Font and Typography =====*/
+    /*.5rem = 8px | 1rem = 16px*/
+    --body-font: 'Edu SA Handwriting', cursive;
+    --h2-font-size: 1.25rem;
+    --small-font-size: .813rem; 
+}
+
+/*==== Responsive typography ====*/
+@media screen and (min-width: 1120px) {
+    :root {
+        --h2-font-size: 1.5rem;
+        --small-font-size: .875rem; 
+    }
+}
+
+/*==== BASE ====*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+img { 
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/*==== CARD ====*/
+.container {
+    display: grid;
+    place-items: center;
+    margin-inline: 4.5rem;
+    padding-block: 5rem;
+}
+
+.card__container {
+    display: grid;
+    row-gap: 3.5rem;
+    column-gap: 2rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.card__article{
+    position: relative;
+    overflow: hidden;
+}
+
+.card__image {
+    width: 100%;
+    max-width: 328px;
+    aspect-ratio: 1 / 1;
+    /* Fallback for browsers that do not support aspect-ratio */    
+    object-fit: cover;
+    object-position: center;
+    border-radius: .5rem;
+    display: block;
+}
+
+.card__data{
+    width: 280px;
+    background-color: var(--container-color);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 8px 24px hsla(0, 0%, 0%, );
+    border-radius: 1rem;
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    margin-top: auto;
+    opacity: 0;
+    transition: opacity 2s 2s;
+    max-height: 350px; /* or any value you want */
+    overflow-y: auto;  /* adds scroll if content is too long */
+    scrollbar-width: thin;
+    scrollbar-color: var(--container-color) var(--container-color); /* For Firefox */
+}
+
+/* For Webkit browsers (Chrome, Edge, Safari) */
+.card__data::-webkit-scrollbar {
+    width: 6px;
+    background: rgba(76, 0, 76, 0.15);
+}
+
+.card__data::-webkit-scrollbar-thumb {
+    background: rgba(76, 0, 76, 0.15); /* subtle purple, adjust as needed */
+    border-radius: 4px;
+}
+
+.card__description {
+    display: block;
+    font-size: 0.56rem;
+    margin-bottom: .25rem;
+}
+
+.card__title {
+    font-size: var(--h2-font-size);
+    font-weight: 500;
+    color: var(--title-color);
+    margin-bottom: .75rem;
+}
+
+.card__button{
+    text-decoration: none;
+    font-size: var(--small-font-size);
+    font-weight: 500;
+    color: var(--first-color);
+}
+
+.card__button:hover {
+    text-decoration: underline;
+}
+
+/* Naming animations in hover */
+.card__article:hover .card__data {
+    animation: show-data 0.5s forwards;
+    opacity: 1;
+    transition: opacity .3;
+}
+
+.card__article:hover{
+    animation: remove-overflow 1s forwards;
+}
+
+.card__article:not(:hover){
+    animation: show-overflow 1s forwards;
+}
+
+.card__article:not(:hover) .card__data{
+    animation: remove-data 1s forwards;
+}
+
+/* Card animation*/
+@keyframes show-data {
+    0% { transform: translateY(2rem); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes remove-overflow {
+    to {
+        overflow: initial;
+    }
+}
+
+@keyframes remove-data {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(2rem); }
+}
+
+@keyframes show-overflow {
+    0%{
+        overflow: initial;
+        pointer-events: none;
+    }
+    50%{
+        overflow: hidden;
+    }
+}
+
+/*==== BREAKPOINTS ====*/
+/* For small devices */
+@media screen and (max-width: 340px) {
+    .container {
+        margin-inline: 1rem;
+    }
+    
+    .card__data {
+        width: 250px;
+        padding: 1rem;
+    }
+}
+
+/* For medium devices */
+@media screen and (min-width: 768px) {
+    .card__container{
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1.5rem;
+    }
+}
+
+/* For large devices */
+@media screen and (min-width: 1120px) {
+    .container{
+        height: 100vh;
+    }
+
+    .card__container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .card__image{
+        width: 348px;
+        height: 348px;
+    }
+    .card__data {
+        width: 316px;
+        padding-inline: 2.5rem;
+    }
+}
+
+/*==== FOOTER ====*/
+.footer {
+    background-color: var(--body-color);
+    text-align: center;
+    color: white !important;
+    padding: 1.5rem 0;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    margin-top: .25rem; /* Reduced from 2rem */
+    border-radius: .5rem .5rem 0 0;
+}
